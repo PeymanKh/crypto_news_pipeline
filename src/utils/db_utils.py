@@ -9,10 +9,11 @@ Date: 2023-03-20
 """
 # Import libraries
 import logging
-from typing import Optional, Dict, Any, List
+from typing import Optional, List
 from pymongo import MongoClient
 from pymongo.database import Database
 
+from src.state import ProcessedNewsItem
 from src.config.config import config
 
 # Module-level connection (create once, reuse across function calls)
@@ -73,8 +74,6 @@ def fetch_cache() -> list[str]:
         ).sort("timestamp", -1).limit(20)
 
         cache = [str(doc["_id"]) for doc in cursor]
-        logging.info(f"Successfully fetched cache with {len(cache)} items.")
-
         return cache
 
     except Exception as e:
@@ -82,7 +81,7 @@ def fetch_cache() -> list[str]:
         return []
 
 
-def add_bulk_news(news: List[Dict[str, Any]]) -> List[str]:
+def add_bulk_news(news: List[ProcessedNewsItem]) -> List[str]:
     """
     Bulk insert processed news into the database.
 
@@ -97,22 +96,27 @@ def add_bulk_news(news: List[Dict[str, Any]]) -> List[str]:
         BulkWriteError: For batch insertion failures
     """
     # Validate news list
-    if isinstance(news, list) and len(news) > 0:
+    if isinstance(news, list) and len(news) == 0:
         raise ValueError("News list must not be empty.")
 
     # Validate each news item
     for news_item in news:
-        if not isinstance(news_item, dict):
-            raise ValueError("Each news item must be a dictionary.")
-        if "_id" not in news_item:
-            raise ValueError("Each news item must have an _id field.")
+        if not isinstance(news_item, ProcessedNewsItem):
+            raise ValueError("Each news item must be a ProcessedNewsItem object.")
 
     # Insert news into the database
     db = get_database()
     collection = db["news"]
 
     try:
-        result = collection.insert_many(news)
+        news_dict = []
+        for item in news:
+            item_dict = item.model_dump()
+            # Rename the 'id' field to '_id' for MongoDB
+            item_dict['_id'] = item_dict.pop('id')
+            news_dict.append(item_dict)
+
+        result = collection.insert_many(news_dict)
         logging.info(f"Successfully inserted {len(result.inserted_ids)} news.")
         return result.inserted_ids
 
