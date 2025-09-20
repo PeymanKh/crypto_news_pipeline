@@ -41,10 +41,9 @@ if __name__ == "__main__":
     graph_builder = create_graph()
 
     memory = InMemorySaver()
-    graph = graph_builder.compile(memory)
+    graph = graph_builder.compile(checkpointer=memory)
 
     thread = {"configurable": {"thread_id": "test"}}
-    initial_state = GraphState(raw_news=[], cache=[], cache_hit=0, unseen_news=[], processed_news=[],
-                               database_write_success=False, telegram_notification_success=False)
+    initial_state = GraphState()
 
     result = graph.invoke(initial_state, thread)

@@ -9,7 +9,7 @@ Date: 2023-03-20
 # Import libraries
 import datetime
 from enum import Enum
-from typing import Dict, List
+from typing import List
 from pydantic import BaseModel
 
 
@@ -54,10 +54,10 @@ class ProcessedNewsItem(BaseModel):
 
 class GraphState(BaseModel):
     """Graph state schema"""
-    raw_news: List[NewsItem]  # Raw news items from the news API
-    cache: List[str]  # Unique id of cached news items
-    cache_hit: int  # Number of news items that were found in the cache
-    unseen_news: List[NewsItem]  # Unseen news items that were not found in the cache
-    processed_news: List[ProcessedNewsItem]  # Processed news items
-    database_write_success: bool  # Flag indicating if the news items were written to the database
-    telegram_notification_success: bool  # Flag indicating if the news items were sent to Telegram
+    raw_news: List[NewsItem] = []  # Raw news items from the news API
+    cache: List[str] = []  # Unique id of cached news items
+    cache_hit: int = 0  # Number of news items that were found in the cache
+    unseen_news: List[NewsItem] = []  # Unseen news items that were not found in the cache
+    processed_news: List[ProcessedNewsItem] = []  # Processed news items
+    database_write_success: bool = False  # Flag indicating if the news items were written to the database
+    telegram_notification_success: bool = False  # Flag indicating if the news items were sent to Telegram
