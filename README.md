@@ -22,19 +22,20 @@
 - [Workflow Diagram](#workflow-diagram)
   - [Nodes](#nodes)
 - [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
+  - [Prerequisites](#1-prerequisites)
+  - [Installation](#2-installation)
+  - [Configuration](#3-configuration)
 - [Usage](#usage)
 - [License](#license)
 - [Contact](#contact)
 - [Acknowledgments](#acknowledgments)
----
+
+
 ## About
 
 Keeping up with the latest news and trends in the cryptocurrency market is a critical task for any investor. This project aims to automate this process by building a news monitoring pipeline that collects, analyzes, and stores cryptocurrency news in a MongoDB database. The pipeline also sends real-time notifications to Telegram about the latest news events.
 
----
+
 ## Workflow Diagram
 
 The pipeline is designed to execute at one-minute intervals, ensuring near real-time monitoring of cryptocurrency news. Below is a visual representation of the system's architecture and data flow:
@@ -118,7 +119,6 @@ Creates a telegram message and sends the processed news items to a Telegram grou
 **Writes:**
 - `state["telegram_notification_success"]`: A boolean indicating whether the message was sent successfully.
 
----
 ## Getting Started
 
 ### 1. Prerequisites
@@ -222,7 +222,6 @@ class SystemConfig(BaseSettings):
 - **Strict validation** with Pydantic's `forbid` extra fields policy
 
 
----
 ## Usage
 
 Here is a simple example of how you can run the application:
@@ -245,19 +244,18 @@ thread = {"configurable": {"thread_id": "test"}}
 # Invoke the graph with initial state and thread configuration
 result = graph.invoke(state, thread)
 ```
----
 
 ## License
 This project is licensed under the `MIT License`. see the [LICENSE](LICENSE) file for details.
 
----
+
 ## Contact
 
 - **Project Link:** [https://github.com/PeymanKh/crypto_news_pipeline.git](https://github.com/PeymanKh/crypto_news_pipeline.git)
 - **Author's Website:** [peymankh.dev](https://peymankh.dev)
 - **Author's Email:** [peymankhodabandehlouei@gmail.com](mailto:peymankhodabandehlouei@gmail.com)
 
----
+
 ## Acknowledgments
 This project's development was greatly supported by the insights and resources provided by the following entities and individuals:
 - **[LangChain Academy](https://academy.langchain.com)**: The foundational framework for the pipeline's architecture and the educational resources for building multi-agent systems.
