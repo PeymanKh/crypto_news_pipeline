@@ -252,7 +252,7 @@ This project is licensed under the `MIT License`. see the [LICENSE](LICENSE) fil
 ## Contact
 
 - **Project Link:** [https://github.com/PeymanKh/crypto_news_pipeline.git](https://github.com/PeymanKh/crypto_news_pipeline.git)
-- **Author's Website:** [peymankh.dev](https://peymankh.dev)
+- **Author's Website:** [https://www.peymankh.dev](https://www.peymankh.dev)
 - **Author's Email:** [peymankhodabandehlouei@gmail.com](mailto:peymankhodabandehlouei@gmail.com)
 
 
